@@ -271,7 +271,7 @@ window.onload = async function ()
 
     await sleep(2000);
 
-    text = 'You can also find my <a href="social.html" target="_blank">social links</a>.';
+    text = 'You can also find my <a href="../social/social.html" target="_blank">social links</a>.';
 
     text_size = get_text_box(text, "typewriter-effect");
 
@@ -293,7 +293,7 @@ window.onload = async function ()
 
     await sleep(2000);
 
-    text = 'And <a href="projects.html" target="_blank">here</a>, you\'ll find my research and studies.';
+    text = 'And <a href="../projects/projects.html" target="_blank">here</a>, you\'ll find my research and studies.';
 
     text_size = get_text_box(text, "typewriter-effect");
 
