@@ -1,4 +1,4 @@
-const frameCache = {};
+const frame_cache = {};
 
 function sleep(ms)
 {
@@ -7,7 +7,7 @@ function sleep(ms)
 
 async function cursor_loop(cursor, fps)
 {
-    const frames = frameCache[cursor];
+    const frames = frame_cache[cursor];
     const sleep_duration = 1000 / fps;
     const buttons = document.querySelectorAll(".splatoon-theme .back-button button, .splatoon-theme .main-buttons button");
 
@@ -33,7 +33,7 @@ async function cursor_loop(cursor, fps)
 
 async function cursor_up(ennemy, size_x, size_y, start_x, start_y, title_box_points, fps, speed, state)
 {
-    const frames = frameCache[ennemy];
+    const frames = frame_cache[ennemy];
     const sleep_duration = 1000 / fps;
 
     const img = document.createElement("img");
@@ -80,7 +80,7 @@ async function background_loop()
         bottom_right: { x: title_box.right, y: title_box.bottom }
     };
 
-    var cursor = "octoling";
+    var cursor = "cursor_octoling";
     var ennemy;
     var fps = 30;
 
@@ -218,8 +218,10 @@ function preload_frames(path, count)
 
 async function start_preload_frames()
 {
-  frameCache["octoling"] = await preload_frames("https://raw.githubusercontent.com/784c/_784c/refs/heads/main/data/assets/cursors/octoling/{}.png", 17);
-  frameCache["squid"] = await preload_frames("https://raw.githubusercontent.com/784c/_784c/refs/heads/main/data/assets/cursors/squid/{}.png", 17);
+  frame_cache["octoling"] = await preload_frames("https://raw.githubusercontent.com/784c/_784c/refs/heads/main/data/assets/cursors/octoling/___{}.png", 17);
+  frame_cache["squid"] = await preload_frames("https://raw.githubusercontent.com/784c/_784c/refs/heads/main/data/assets/cursors/squid/___{}.png", 17);
+  frame_cache["cursor_octoling"] = await preload_frames("https://raw.githubusercontent.com/784c/_784c/refs/heads/main/data/assets/cursors/octoling/_{}.png", 17);
+  frame_cache["cursor_squid"] = await preload_frames("https://raw.githubusercontent.com/784c/_784c/refs/heads/main/data/assets/cursors/squid/_{}.png", 17);
 }
 
 window.onload = async function ()
