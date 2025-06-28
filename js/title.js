@@ -187,46 +187,46 @@ function get_text_box(text, class_name)
     const box = span.getBoundingClientRect();
     document.body.removeChild(span);
 
-    return {
+    return{
         width: box.width,
         height: box.height
     };
 }
 
-function preload_frames(path, count) {
-  const images = [];
-  const promises = [];
+function preload_frames(path, count)
+{
+    const images = [];
+    const promises = [];
 
-  for (let i = 1; i <= count; i++) {
-    const img = new Image();
-    const src = path.replace("{}", i);
-    img.src = src;
+    for (let i = 1; i <= count; i++)
+    {
+        const img = new Image();
+        const src = path.replace("{}", i);
+        img.src = src;
 
-    const promise = new Promise((resolve, reject) => {
-      img.onload = () => resolve(img);
-      img.onerror = reject;
-    });
+        const promise = new Promise((resolve, reject) => {
+            img.onload = () => resolve(img);
+            img.onerror = reject;
+        });
 
-    promises.push(promise);
-    images.push(img);
-  }
+        promises.push(promise);
+        images.push(img);
+    }
 
-  return Promise.all(promises).then(() => images);
+    return Promise.all(promises).then(() => images);
 }
 
-async function preloadAll() {
-  frameCache["octoling"] = await preload_frames(`../data/assets/cursors/octoling/___{}.png`, 17);
-  frameCache["squid"] = await preload_frames(`../data/assets/cursors/squid/___{}.png`, 17);
-  // Ajoute d'autres si tu as plus de sets
+async function start_preload_frames()
+{
+  frameCache["octoling"] = await preload_frames("https://raw.githubusercontent.com/784c/_784c/refs/heads/main/data/assets/cursors/octoling/{}.png", 17);
+  frameCache["squid"] = await preload_frames("https://raw.githubusercontent.com/784c/_784c/refs/heads/main/data/assets/cursors/squid/{}.png", 17);
 }
 
 window.onload = async function ()
 {
-    await preloadAll();
+    await start_preload_frames();
 
     background_loop();
-
-    //boxes
 
     let screen_size_x = window.innerWidth;
     let screen_size_y = window.innerHeight;
@@ -240,8 +240,6 @@ window.onload = async function ()
         bottom_left:  { x: title_box.left,  y: title_box.bottom },
         bottom_right: { x: title_box.right, y: title_box.bottom }
     };
-
-    //boxes
 
     let text_x;
     let text = "Welcome to my personal website!";
