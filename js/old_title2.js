@@ -1,5 +1,3 @@
-const frameCache = {};
-
 function sleep(ms)
 {
     return new Promise(resolve => setTimeout(resolve, ms));
@@ -7,7 +5,8 @@ function sleep(ms)
 
 async function cursor_loop(cursor, fps)
 {
-    const frames = frameCache[cursor];
+    const frame_count = 17;
+    const frames = preload_frames(`../data/assets/cursors/${cursor}/_{}.png`, frame_count);
     const sleep_duration = 1000 / fps;
     const buttons = document.querySelectorAll(".splatoon-theme .back-button button, .splatoon-theme .main-buttons button");
 
@@ -33,7 +32,8 @@ async function cursor_loop(cursor, fps)
 
 async function cursor_up(ennemy, size_x, size_y, start_x, start_y, title_box_points, fps, speed, state)
 {
-    const frames = frameCache[ennemy];
+    const frame_count = 17;
+    const frames = preload_frames(`../data/assets/cursors/${ennemy}/___{}.png`, frame_count);
     const sleep_duration = 1000 / fps;
 
     const img = document.createElement("img");
@@ -193,37 +193,20 @@ function get_text_box(text, class_name)
     };
 }
 
-function preload_frames(path, count) {
-  const images = [];
-  const promises = [];
-
-  for (let i = 1; i <= count; i++) {
-    const img = new Image();
-    const src = path.replace("{}", i);
-    img.src = src;
-
-    const promise = new Promise((resolve, reject) => {
-      img.onload = () => resolve(img);
-      img.onerror = reject;
-    });
-
-    promises.push(promise);
-    images.push(img);
-  }
-
-  return Promise.all(promises).then(() => images);
-}
-
-async function preloadAll() {
-  frameCache["octoling"] = await preload_frames(`../data/assets/cursors/octoling/___{}.png`, 17);
-  frameCache["squid"] = await preload_frames(`../data/assets/cursors/squid/___{}.png`, 17);
-  // Ajoute d'autres si tu as plus de sets
+function preload_frames(path, count)
+{
+    const images = [];
+    for (let i = 1; i <= count; i++)
+    {
+        const img = new Image();
+        img.src = path.replace("{}", i);
+        images.push(img);
+    }
+    return images;
 }
 
 window.onload = async function ()
 {
-    await preloadAll();
-
     background_loop();
 
     //boxes
