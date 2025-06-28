@@ -5,23 +5,40 @@ function sleep(ms)
 
 async function cursor_loop(cursor, fps)
 {
-    const frame_count = 17;
-    const frames = preload_frames(`../data/assets/cursors/${cursor}/_{}.png`, frame_count);
+    const frames = [
+        `../data/assets/cursors/${cursor}/_1.png`,
+        `../data/assets/cursors/${cursor}/_2.png`,
+        `../data/assets/cursors/${cursor}/_3.png`,
+        `../data/assets/cursors/${cursor}/_4.png`,
+        `../data/assets/cursors/${cursor}/_5.png`,
+        `../data/assets/cursors/${cursor}/_6.png`,
+        `../data/assets/cursors/${cursor}/_7.png`,
+        `../data/assets/cursors/${cursor}/_8.png`,
+        `../data/assets/cursors/${cursor}/_9.png`,
+        `../data/assets/cursors/${cursor}/_10.png`,
+        `../data/assets/cursors/${cursor}/_11.png`,
+        `../data/assets/cursors/${cursor}/_12.png`,
+        `../data/assets/cursors/${cursor}/_13.png`,
+        `../data/assets/cursors/${cursor}/_14.png`,
+        `../data/assets/cursors/${cursor}/_15.png`,
+        `../data/assets/cursors/${cursor}/_16.png`,
+        `../data/assets/cursors/${cursor}/_17.png`
+    ];
+
     const sleep_duration = 1000 / fps;
     const buttons = document.querySelectorAll(".splatoon-theme .back-button button, .splatoon-theme .main-buttons button");
-
-    let done = false;
+    var done = false;
 
     while (!done)
     {
         for (let i = 0; i < frames.length; i++)
         {
-            const url = frames[i].src;
-            const cursorStyle = `url("${url}") 16 16, auto`;
+            const cursorStyle = `url("${frames[i]}") 16 16, auto`;
 
             document.documentElement.style.cursor = cursorStyle;
 
-            buttons.forEach(button => {
+            buttons.forEach(button =>
+            {
                 button.style.cursor = cursorStyle;
             });
 
@@ -32,11 +49,29 @@ async function cursor_loop(cursor, fps)
 
 async function cursor_up(ennemy, size_x, size_y, start_x, start_y, title_box_points, fps, speed, state)
 {
-    const frame_count = 17;
-    const frames = preload_frames(`../data/assets/cursors/${ennemy}/___{}.png`, frame_count);
-    const sleep_duration = 1000 / fps;
+    const frames = [
+        `../data/assets/cursors/${ennemy}/___1.png`,
+        `../data/assets/cursors/${ennemy}/___2.png`,
+        `../data/assets/cursors/${ennemy}/___3.png`,
+        `../data/assets/cursors/${ennemy}/___4.png`,
+        `../data/assets/cursors/${ennemy}/___5.png`,
+        `../data/assets/cursors/${ennemy}/___6.png`,
+        `../data/assets/cursors/${ennemy}/___7.png`,
+        `../data/assets/cursors/${ennemy}/___8.png`,
+        `../data/assets/cursors/${ennemy}/___9.png`,
+        `../data/assets/cursors/${ennemy}/___10.png`,
+        `../data/assets/cursors/${ennemy}/___11.png`,
+        `../data/assets/cursors/${ennemy}/___12.png`,
+        `../data/assets/cursors/${ennemy}/___13.png`,
+        `../data/assets/cursors/${ennemy}/___14.png`,
+        `../data/assets/cursors/${ennemy}/___15.png`,
+        `../data/assets/cursors/${ennemy}/___16.png`,
+        `../data/assets/cursors/${ennemy}/___17.png`
+    ];
 
+    const sleep_duration = 1000 / fps;
     const img = document.createElement("img");
+
     img.style.position = "absolute";
     img.style.left = `${start_x}px`;
     img.style.top = `${start_y}px`;
@@ -51,8 +86,16 @@ async function cursor_up(ennemy, size_x, size_y, start_x, start_y, title_box_poi
     {
         for (let i = 0; i < frames.length; i++)
         {
-            img.src = frames[i].src;
+            img.src = frames[i];
             current_y -= speed;
+
+            /*
+            if (current_y >= title_box_points.top_left.y && current_y <= title_box_points.bottom_left.y && start_x >= title_box_points.bottom_left.x && start_x <= title_box_points.bottom_right.x)
+            {
+                current_y = 0;
+            }
+            */
+
             img.style.top = `${current_y}px`;
 
             await sleep(sleep_duration);
@@ -62,7 +105,8 @@ async function cursor_up(ennemy, size_x, size_y, start_x, start_y, title_box_poi
     }
 
     img.remove();
-    state.current_cursors--;
+
+    state.current_cursors --;
 }
 
 async function background_loop()
@@ -174,13 +218,13 @@ async function write(text, x, y)
     }, { once: true });
 }
 
-function get_text_box(text, class_name)
+function get_text_box(text, className = "")
 {
     const span = document.createElement("span");
     span.style.position = "absolute";
     span.style.visibility = "hidden";
     span.style.whiteSpace = "nowrap";
-    span.className = class_name;
+    span.className = className;
     span.innerText = text;
 
     document.body.appendChild(span);
@@ -191,18 +235,6 @@ function get_text_box(text, class_name)
         width: box.width,
         height: box.height
     };
-}
-
-function preload_frames(path, count)
-{
-    const images = [];
-    for (let i = 1; i <= count; i++)
-    {
-        const img = new Image();
-        img.src = path.replace("{}", i);
-        images.push(img);
-    }
-    return images;
 }
 
 window.onload = async function ()
