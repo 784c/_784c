@@ -1,5 +1,3 @@
-const frame_cache = {};
-
 function sleep(ms)
 {
     return new Promise(resolve => setTimeout(resolve, ms));
@@ -223,6 +221,8 @@ async function start_preload_frames()
   frame_cache["cursor_octoling"] = await preload_frames("https://raw.githubusercontent.com/784c/_784c/refs/heads/main/data/assets/cursors/octoling/_{}.png", 17);
   frame_cache["cursor_squid"] = await preload_frames("https://raw.githubusercontent.com/784c/_784c/refs/heads/main/data/assets/cursors/squid/_{}.png", 17);
 }
+
+const frame_cache = {};
 
 window.onload = async function ()
 {
