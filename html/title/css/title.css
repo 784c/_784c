@@ -100,7 +100,7 @@ html, body
 @font-face
 {
     font-family: 'splatoon';
-    src: url('../data/fonts/Splatoon2.otf') format('opentype');
+    src: url('../../../data/fonts/Splatoon2.otf') format('opentype');
 }
 
 .typewriter-effect
@@ -125,7 +125,8 @@ html, body
     animation: typing 3s steps(var(--characters)) 1 forwards;
 }
 
-.typewriter-effect:not(.done)::after {
+.typewriter-effect:not(.done)::after
+{
     content: " |";
     animation: blink 1s infinite;
     animation-timing-function: step-end;
